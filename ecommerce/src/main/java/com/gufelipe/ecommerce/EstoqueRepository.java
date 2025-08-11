@@ -1,5 +1,6 @@
 package com.gufelipe.ecommerce;
 
+import com.gufelipe.ecommerce.exception.ProdutoNaoEncontradoException;
 import com.gufelipe.ecommerce.modelo.Produto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,10 +76,13 @@ public class EstoqueRepository {
         Produto produtoEncontrado = consultarEstoque(produto.getId());
 
         if (produtoEncontrado == null){
-            return;
+            var errMsg = "Erro ao atualizar o produto= " + produto;
+            throw new ProdutoNaoEncontradoException(errMsg, "PRODUTO_NAO_ENCONTRADO");
         }
+        produtoEncontrado.setTitulo(produto.getTitulo());
+        produtoEncontrado.setDescricao(produto.getDescricao());
+        produtoEncontrado.setPreco(produto.getPreco());
+        produtoEncontrado.setQtdEstoque(produto.getQtdEstoque());
 
-        int index = estoqueRepository.indexOf(produtoEncontrado);
-        estoqueRepository.set( index , produto );
     }
 }
