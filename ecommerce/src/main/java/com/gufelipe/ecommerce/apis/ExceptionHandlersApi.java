@@ -1,8 +1,6 @@
 package com.gufelipe.ecommerce.apis;
 
-import com.gufelipe.ecommerce.exception.ApiError;
-import com.gufelipe.ecommerce.exception.ApplicationException;
-import com.gufelipe.ecommerce.exception.ProdutoNaoEncontradoException;
+import com.gufelipe.ecommerce.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,9 +10,27 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionHandlersApi {
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ExceptionHandler(ProdutoNaoEncontradoException.class)
     public ApiError HandlerProdutoNaoEncontradoException(ProdutoNaoEncontradoException ex) {
+        return new ApiError(
+                ex.getMessage(),
+                ex.getCode()
+        );
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ClienteNaoEncontradoException.class)
+    public ApiError HandlerClienteNaoEncontradoException(ProdutoNaoEncontradoException ex) {
+        return new ApiError(
+                ex.getMessage(),
+                ex.getCode()
+        );
+    }
+
+    @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
+    @ExceptionHandler(ClienteJaExistenteException.class)
+    public ApiError HandlerClienteJaExistenteException(ClienteJaExistenteException ex){
         return new ApiError(
                 ex.getMessage(),
                 ex.getCode()
@@ -33,7 +49,7 @@ public class ExceptionHandlersApi {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handlerProdutoNotFoundException(Exception ex) {
+    public ResponseEntity<ApiError> handlerException(Exception ex) {
         ApiError apiError = new ApiError(ex.getMessage(), "INDEFINIDO");
 
         return ResponseEntity

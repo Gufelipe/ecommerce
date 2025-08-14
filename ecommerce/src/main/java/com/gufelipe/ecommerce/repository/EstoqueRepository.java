@@ -1,12 +1,10 @@
-package com.gufelipe.ecommerce;
+package com.gufelipe.ecommerce.repository;
 
 import com.gufelipe.ecommerce.exception.ProdutoNaoEncontradoException;
-import com.gufelipe.ecommerce.modelo.Produto;
+import com.gufelipe.ecommerce.entity.Produto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,7 @@ public class EstoqueRepository {
                 return produto;
             }
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto com ID " + idProduto + " não encontrado");
+    return null;
     }
 
     public void inserirItem(Produto produto) {

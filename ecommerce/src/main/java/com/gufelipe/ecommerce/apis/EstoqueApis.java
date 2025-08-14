@@ -1,7 +1,7 @@
 package com.gufelipe.ecommerce.apis;
 
-import com.gufelipe.ecommerce.EstoqueRepository;
-import com.gufelipe.ecommerce.modelo.Produto;
+import com.gufelipe.ecommerce.repository.EstoqueRepository;
+import com.gufelipe.ecommerce.entity.Produto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.gufelipe.ecommerce.modelo;
+package com.gufelipe.ecommerce.entity;
 
 import java.math.BigDecimal;
 

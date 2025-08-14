@@ -1,4 +1,4 @@
-package com.gufelipe.ecommerce.modelo;
+package com.gufelipe.ecommerce.entity;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -19,12 +19,12 @@ public class Produto {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void removerItens(Integer quantidade) {
         this.qtdEstoque -= quantidade;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitulo() {

@@ -1,6 +1,6 @@
 package com.gufelipe.ecommerce.notificacao;
 
-import com.gufelipe.ecommerce.Cliente;
+import com.gufelipe.ecommerce.entity.Cliente;
 
 public class NotificarViaEmail implements Notificacao {
 
