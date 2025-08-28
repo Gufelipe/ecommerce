@@ -28,7 +28,7 @@ public class ClienteRepository {
         throw new ClienteNaoEncontradoException(errMsg, "CLIENTE_NAO_ENCONTRADO");
     }
 
-    private boolean consultarCliente(String email){
+    private boolean consultarCliente(String email) {
         var jaExiste = false;
         for (Cliente cliente : clientes) {
             if (cliente.getEmail().equals(email)) {
@@ -42,16 +42,16 @@ public class ClienteRepository {
         logger.info("Inserindo cliente");
         logger.debug("Inserindo cliente={}", cliente);
 
-        if (consultarCliente(cliente.getEmail())){
+        if (consultarCliente(cliente.getEmail())) {
             var errMsg = "Email ja cadastrado";
-            throw new ClienteJaExistenteException(errMsg,"EMAIL_JA_CADASTRADO");
+            throw new ClienteJaExistenteException(errMsg, "EMAIL_JA_CADASTRADO");
         }
 
         cliente.setId(new Random().nextLong());
         clientes.add(cliente);
     }
 
-    public Set<Cliente> listarTodosClientes(){
+    public Set<Cliente> listarTodosClientes() {
         return clientes;
     }
 }

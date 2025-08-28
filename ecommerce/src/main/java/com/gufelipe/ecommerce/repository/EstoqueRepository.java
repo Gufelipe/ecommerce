@@ -1,13 +1,14 @@
 package com.gufelipe.ecommerce.repository;
 
-import com.gufelipe.ecommerce.exception.ProdutoNaoEncontradoException;
 import com.gufelipe.ecommerce.entity.Produto;
+import com.gufelipe.ecommerce.exception.ProdutoNaoEncontradoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class EstoqueRepository {
@@ -31,7 +32,7 @@ public class EstoqueRepository {
                 return produto;
             }
         }
-    return null;
+        return null;
     }
 
     public void inserirItem(Produto produto) {
@@ -52,13 +53,8 @@ public class EstoqueRepository {
         return estoqueRepository.size();
     }
 
-    public void removerUmExemplar(Produto produto) {
-        Produto produtoEncontrado = consultarEstoque(produto.getTitulo());
-
-        if (produtoEncontrado == null)
-            return;
-
-        produtoEncontrado.removerItens(1);
+    public void removerUmExemplar(Long idProduto) {
+        estoqueRepository.removeIf(produto -> produto.getId().equals(idProduto));
     }
 
     public void removerItem(Long idProduto) {
@@ -73,7 +69,7 @@ public class EstoqueRepository {
     public void atualizarProduto(Produto produto) {
         Produto produtoEncontrado = consultarEstoque(produto.getId());
 
-        if (produtoEncontrado == null){
+        if (produtoEncontrado == null) {
             var errMsg = "Erro ao atualizar o produto= " + produto;
             throw new ProdutoNaoEncontradoException(errMsg, "PRODUTO_NAO_ENCONTRADO");
         }
@@ -81,6 +77,17 @@ public class EstoqueRepository {
         produtoEncontrado.setDescricao(produto.getDescricao());
         produtoEncontrado.setPreco(produto.getPreco());
         produtoEncontrado.setQtdEstoque(produto.getQtdEstoque());
+    }
 
+    public void darBaixaNosProdutos(Set<Produto> produtosParaDarBaixa) {
+        for (Produto produto : produtosParaDarBaixa) {
+            Produto produtoEncontrado = consultarEstoque(produto.getId());
+
+            if (produtoEncontrado == null) {
+                throw new RuntimeException("Produto não disponível para venda idProduto=" + produto.getId());
+            }
+
+            removerUmExemplar(produto.getId());
+        }
     }
 }

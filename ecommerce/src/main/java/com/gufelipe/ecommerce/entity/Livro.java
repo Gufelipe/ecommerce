@@ -6,8 +6,8 @@ public class Livro extends Produto {
 
     private Integer anoLancamento;
 
-    public Livro(String titulo, String descricao, BigDecimal preco, Integer qtdEstoque, Long idProduto, Integer anoLancamento) {
-        super(titulo, descricao, preco, qtdEstoque, idProduto);
+    public Livro(Long idProduto, String titulo, String descricao, BigDecimal preco, Integer qtdEstoque , Integer anoLancamento) {
+        super(idProduto, titulo, descricao, preco, qtdEstoque);
         this.anoLancamento = anoLancamento;
     }
 

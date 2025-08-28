@@ -11,11 +11,11 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/carrinhos")
-public class carrinhoApi {
+public class CarrinhoApi {
 
     private final CarrinhoService carrinhoService;
 
-    public carrinhoApi(CarrinhoService carrinhoService) {
+    public CarrinhoApi(CarrinhoService carrinhoService) {
         this.carrinhoService = carrinhoService;
     }
 
@@ -25,11 +25,26 @@ public class carrinhoApi {
         return carrinhoService.listarTodosCarrinhos();
     }
 
+    @GetMapping("/{idCliente}")
+    @ResponseStatus(HttpStatus.OK)
+    public Carrinho consultarCarrinho(@PathVariable Long idCliente) {
+        return carrinhoService.consultarCarrinho(idCliente);
+    }
+
     @PostMapping("/{idCliente}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void adicionarNoCarrinho(
             @PathVariable Long idCliente,
             @RequestBody Produto produto
     ) {
         carrinhoService.adicionarNoCarrinho(idCliente, produto);
+    }
+
+    @DeleteMapping("/{idCliente}")
+    public void removerDoCarrinho(
+            @PathVariable Long idCliente,
+            @RequestBody Produto produto
+    ) {
+        carrinhoService.removerDoCarrinho(idCliente, produto);
     }
 }

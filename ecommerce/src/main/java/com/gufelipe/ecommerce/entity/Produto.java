@@ -9,14 +9,15 @@ public class Produto {
     private String descricao;
     private BigDecimal preco;
     private Integer qtdEstoque;
-    private final Long id;
+    private Long id;
 
-    public Produto(String titulo, String descricao, BigDecimal preco, Integer qtdEstoque, Long id) {
+    public Produto(Long id, String titulo, String descricao, BigDecimal preco, Integer qtdEstoque) {
+        this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.preco = preco;
         this.qtdEstoque = qtdEstoque;
-        this.id = id;
+
     }
 
     public void removerItens(Integer quantidade) {

@@ -1,7 +1,6 @@
 package com.gufelipe.ecommerce.repository;
 
 import com.gufelipe.ecommerce.entity.Carrinho;
-import com.gufelipe.ecommerce.entity.Produto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -16,17 +15,22 @@ public class CarrinhoRepository {
 
     private final Set<Carrinho> carrinhos = new HashSet<>();
 
-    public void removerDoCarrinho(Long idCliente, Produto produto) {
-        Carrinho carrinho = consultarCarrinho(idCliente);
-    }
-
     public void adicionarCarrinho(Carrinho carrinho) {
         carrinhos.add(carrinho);
     }
 
-    public Carrinho consultarCarrinho(Long idCliente) {
+    public Carrinho consultarCarrinhoDeCliente(Long idCliente) {
         for (Carrinho carrinho : carrinhos) {
             if (carrinho.pertenceAoCliente(idCliente)) {
+                return carrinho;
+            }
+        }
+        return null;
+    }
+
+    public Carrinho consultarCarrinhoPorId(Long idCarrinho) {
+        for (Carrinho carrinho : carrinhos) {
+            if (carrinho.getId().equals(idCarrinho)) {
                 return carrinho;
             }
         }
@@ -36,4 +40,5 @@ public class CarrinhoRepository {
     public Set<Carrinho> listarTodosCarrinhos() {
         return carrinhos;
     }
+
 }
